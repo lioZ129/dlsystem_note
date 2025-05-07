@@ -171,7 +171,7 @@ mpath.parameters()
 
 ### 5. 初始化策略（Kaiming初始化）
 - 针对ReLU激活函数设计，防止梯度消失/爆炸
-- 公式：权重初始化为 \(\mathcal{N}(0, \sqrt{2/n_{in}})\)
+- 公式：权重初始化为 \(\mathcal{N}(0, \sqrt{2/n_{in}})\) （对于ReLU）
 - 通过保持各层激活值方差一致，确保稳定训练
 
 

@@ -38,7 +38,10 @@
 ## 反向模式的自动微分
 
 - 伴随(adjoint):输出标量对每个中间值节点的偏导数
-- 此方法大意与前向模式相反： $ \bar{v}_i=\frac{\partial y}{\partial v_i} $ , 从计算图末尾向前计算，仍以上计算图举例：易得 $\overline{v_7}=\frac{\partial y}{\partial v_7}=1  ;\\  \overline{v_6}=\bar{v}_7 \frac{\partial v_7}{\partial v_6}=\overline{v_7} \times 1=1 ;\\ \dots \\ \overline{v_2}=\overline{v_5} \frac{\partial v_5}{\partial v_2}+\overline{v_4} \frac{\partial v_4}{\partial v_2}=\overline{v_5} \times \cos v_2+\bar{v}_4 \times v_1=-0.284+2=1.716 ;\\ \overline{v_1}=\bar{v}_4 \frac{\partial v_4}{\partial v_1}+\overline{v_3} \frac{\partial v_3}{\partial v_1}=\overline{v_4} \times v_2+\bar{v}_3 \frac{1}{v_1}=5+\frac{1}{2}=5.5$
+- 此方法大意与前向模式相反： $ \bar{v}_i=\frac{\partial y}{\partial v_i} $ 
+  > 即此处的 $\bar{v}_i$ 就是前文的Gi的较微观形式
+
+  从计算图末尾向前计算，仍以上计算图举例：易得 $\overline{v_7}=\frac{\partial y}{\partial v_7}=1  ;\\  \overline{v_6}=\bar{v}_7 \frac{\partial v_7}{\partial v_6}=\overline{v_7} \times 1=1 ;\\ \dots \\ \overline{v_2}=\overline{v_5} \frac{\partial v_5}{\partial v_2}+\overline{v_4} \frac{\partial v_4}{\partial v_2}=\overline{v_5} \times \cos v_2+\bar{v}_4 \times v_1=-0.284+2=1.716 ;\\ \overline{v_1}=\bar{v}_4 \frac{\partial v_4}{\partial v_1}+\overline{v_3} \frac{\partial v_3}{\partial v_1}=\overline{v_4} \times v_2+\bar{v}_3 \frac{1}{v_1}=5+\frac{1}{2}=5.5$
 - 上述v2,v1求法基于： $ \overline{v_1}=\frac{\partial y}{\partial v_1}=\frac{\partial f\left(v_2, v_3\right)}{\partial v_2} \frac{\partial v_2}{\partial v_1}+\frac{\partial f\left(v_2, v_3\right)}{\partial v_3} \frac{\partial v_3}{\partial v_1}=\overline{v_2} \frac{\partial v_2}{\partial v_1}+\overline{v_3} \frac{\partial v_3}{\partial v_1} $ 其余情况类似
 - 前文的伴随： $\overline{v_{i \rightarrow j}}=\bar{v}_j \frac{\partial v_j}{\partial v_i}$
 - 故可以得出（多路径情况中） $ \bar{v}_i=\sum_{j \in \text { next }(i)} \overline{v_{i \rightarrow j}}$
