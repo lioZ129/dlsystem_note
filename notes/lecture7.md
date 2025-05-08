@@ -70,13 +70,13 @@ v5.backward()
 - 问题：如何将机器学习三要素（假设类、损失函数、优化）转化为代码中的模块化组件
 
 深度学习模块化示意图：
-![alt text](image-14.png)
+![alt text](../images/image-14.png)
 
 - 能够将不同的深度学习解决方案组合在一起，且更新模块所需要的代价远小于重建整个神经网络
 
 ### nn.Module数据结构
 
-![alt text](image-13.png)
+![alt text](../images/image-13.png)
 
 - 深度学习本质上是模块化的，如上示意图，将模块组合在一起需要考虑：参数初始化、集合参数列表等
 
@@ -89,7 +89,7 @@ v5.backward()
 
 ### 优化器 optimizer
 示意图：
-![alt text](image-15.png)
+![alt text](../images/image-15.png)
 
 优化器为其中绿色部分，接收nn.module的参数表与梯度并以梯度下降更新之
 
@@ -117,4 +117,4 @@ v5.backward()
    - 仿射变换或对图像的旋转、抖动以确保扩大输入空间..
 - 数据加载和扩充本质上也是可组合的，可以用模块的组合构建一个数据预处理单步流水线，如下图：
 
-![alt text](image-16.png)
+![alt text](../images/image-16.png)

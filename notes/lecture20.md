@@ -9,13 +9,13 @@
   - 优点是能捕获无限长的历史信息
   - 缺点是难以记住较远时刻的信息，并且容易梯度消失、爆炸
 - 直接预测方法 direct prediction：
-  ![alt text](image-49.png)
+  ![alt text](../images/image-49.png)
   由x1预测y1，x1、x2预测y2，x1x2x3预测y3...需要改变预测的函数
   - 优点：通常可以使用更短的计算路径从过去映射到当前状态
   - 缺点：没有隐藏层，实际中能捕获的历史有限
 
 ## 基于CNN的直接预测方法 时间卷积网络(TCN)
-![alt text](image-50.png)
+![alt text](../images/image-50.png)
 
 - 如图所示，隐藏层中的卷积为单向的，$z_t^{(i+1)}$ 只能取决于 $z_{t-k:t}^{(i)}$
 - 显著缺点：卷积的感受野相对较小，若想要y的预测能捕获更多x，则需要增大网络的深度，代价大
@@ -25,7 +25,7 @@
 ## self-attention和Transformers
 
 ### 深度学习中的注意机制
-![alt text](image-51.png)
+![alt text](../images/image-51.png)
 
 - 如图所示是正常的rnn加上注意力机制，原本的rnn的最终输出只依赖于最后一个隐藏层单元的数据，这样会随着时间步增加而减少对前面输入的注意，而注意力机制就将纵向所有的h加权累加的最终输出，添加新的参数以优化，以确保可以有权衡的输出预测
 - 公式： $  \bar{h}=\sum_{t=1}^T w_t h_t^{(k)} $
@@ -65,12 +65,12 @@ $$
 - 理解：注意力机制的目的是增强序列中某部分注意其他部分需要注意的数据的能力，虽然QKV都是输入x的线性变化，但需要抽象的将这三者理解为不同的角色：Q可以理解为当前位置需要关注的信息需求，K可以当作其他位置被注意的标识，Q和K中的向量点乘代表 需要注意/不需要 的程度，结合softmax为概率，在乘回V（原来的各位置实际信息）得到注意权重后的新数据
 
 ### transformers
-![alt text](image-52.png)
+![alt text](../images/image-52.png)
 
 - 如上图所示，与之前的RNN与时间预测网络TCN不同，这里所有时间步长都是并行处理的，为 $Z^{(i+1)}=\operatorname{Transformer}\left(Z^{(i)}\right)$
 - 图中箭头类似一个transformer block（不止），transformer block流程图如下
 
-![alt text](image-53.png)
+![alt text](../images/image-53.png)
 
 - 对应公式：
   - 自注意力：$\tilde{Z}:=\text { SelfAttention }\left(Z^{(i)} W_K, Z^{(i)} W_Q, Z^{(i)} W_V\right) \\
@@ -93,7 +93,7 @@ $$
 ##### 对缺点的两种改进：
 ##### 1. Masked self-attention 自注意力屏蔽
 - Mask Matrix = M = 上三角为无限大，下三角为0的矩阵
-![alt text](image-54.png)
+![alt text](../images/image-54.png)
 - 改变了KQV的公式：$\operatorname{softmax}\left(\frac{K Q^T}{d^{1 / 2}}-M\right) V$
 - 为什么要减M：某些情况下，不想让每个输出都依赖所有时间步的输入，尤其是不想预先得知未来的输入，故减M使得原本的KQ^T乘积的上三角部分在softmax过后会变成零，相当于屏蔽了当前时间步未来的输入
 

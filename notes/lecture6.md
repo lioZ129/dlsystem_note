@@ -25,7 +25,7 @@
 - 最速下降
 
 效果：
-![alt text](image-6.png)
+![alt text](../images/image-6.png)
 
 ### 2. 牛顿法
 - 传统优化的正确方法，但不常用，与深度学习没有太大相关性
@@ -42,19 +42,19 @@
  其中 $\alpha$ 和之前一样是步长，$\beta$ 是动量平均参数, u 就是之前梯度的加权累加
 
 效果（对比梯度下降）：
-![alt text](image-7.png)
+![alt text](../images/image-7.png)
 
 - **b. 无偏动量法**：假设将初始动量项为0，则初始迭代中，$u_{0}=0 , u_{1}=\beta u_0+(1-\beta) \nabla_\theta f\left(\theta_0\right) = (1-\beta) \nabla_\theta f\left(\theta_0\right)$ 那将会使其无缘故的乘 $(1-\beta)$ 减小梯度，故为了使所有迭代中具有相同的预期幅度，有： $ \theta_{t+1}=\theta_t-\alpha u_t /\left(1-\beta^{t+1}\right)$ 
 > 注意 $\beta^{t+1}$ 为指数t+1
 
 
 效果（对比普通动量法）：
-![alt text](image-8.png)
+![alt text](../images/image-8.png)
 
 - **c. Nesterov动量法**：计算“下一个”点的动量更新，一个有用的技巧
 
 效果（对比普通动量法）：
-![alt text](image-9.png)
+![alt text](../images/image-9.png)
 
 - **d. Adam自适应梯度算法**
 - 对于不同的参数，梯度的比例可以有很大的不同，尤其是跨越深度网络的不同层、不同的层类型等。所谓的自适应梯度方法试图通过迭代估计这个比例，然后相应地重新调整梯度更新。Adam算法是深度学习中使用最广泛的自适应梯度方法，它结合了动量和自适应尺度估计：
@@ -69,7 +69,7 @@ $\begin{aligned}
 
 
 效果：
-![alt text](image-10.png)
+![alt text](../images/image-10.png)
 
 ### 4.随机梯度下降
 - 最重要的优化还是使用随机变量、小批次的SGD算法来实现梯度下降
@@ -78,7 +78,7 @@ $\begin{aligned}
 > 采取许多廉价、有噪音但无偏差的下降步骤来提高性能
 
 效果：
-![alt text](image-11.png)
+![alt text](../images/image-11.png)
 
 ## 初始化
 - 如何选择Wi，bi等参数的初始值
@@ -92,7 +92,7 @@ $\begin{aligned}
   2. 反向传播梯度 $\nabla_{W_i} \ell\left(h_\theta(X), y\right)$ 的模长
 
 对 MNIST 50层神经网络的简单测试：
-![alt text](image-12.png)
+![alt text](../images/image-12.png)
 
 > norm（范数）：定义的目的是度量向量之间的距离，比较向量与矩阵，性质为非负、齐次，有0-范数（非零元素个数）、1-范数（各元素绝对值之和）、2-范数（各元素平方和再平方根）、p-范数（各元素p次方和再开p次方根）等等..在此进行L2范数比较一是符合Zi为n维向量，二是符合ReLU只对大于零输入有效
 

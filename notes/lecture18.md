@@ -13,11 +13,11 @@
 - 序列建模中的一个特例：自回归预测
   - 通过使用同一变量在之前各期的表现来预测该变量在当前期的表现
   - 如下图所示，预测的元素是序列中的下一个元素
-  ![alt text](image-46.png)
+  ![alt text](../images/image-46.png)
 
 
 ## RNN 
-![alt text](image-47.png)
+![alt text](../images/image-47.png)
 - 中间有基于序列的隐藏层h0，h1...
   公式为：$$ h_t=f\left(W_{h h} h_{t-1}+W_{h x} x_t+b_h\right) \\
   y_t=g\left(W_{y h} h_t+b_y\right)$$
@@ -37,7 +37,7 @@
     opt.step()
     ```
 - RNN叠加
-  ![alt text](image-48.png)
+  ![alt text](../images/image-48.png)
   - RNN叠加分成时间步深度与层深度两个方面，一般为如图示的纵向叠加（叠加隐藏层层数）
   - h包含了对应y所拥有的序列依赖关系
   > 非常深的RNN的价值往往较低:
@@ -81,7 +81,7 @@
     $$
 
     图示：
-    ![[alt text](https://blog.csdn.net/mary19831/article/details/129570030)](image-55.png)
+    ![[alt text](https://blog.csdn.net/mary19831/article/details/129570030)](../images/image-55.png)
   - LSTM定义了一些中间变量，有forget gate、input gate、output gate，还有候选状态g_t
   - 我的理解：
     - 将原本隐藏层的单元之间信息的传递给细化，之前rnn只使用一个激活函数与一组d * d参数，但LSTM使用4d * d相当于一个W_hh包含四组参数，且给予各组不同功能

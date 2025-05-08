@@ -61,7 +61,7 @@ void vecadd(float* A, float *B, float* C) {
 
 ### 矩阵乘法
 #### CPU上的内存层次结构
-![alt text](image-27.png)
+![alt text](../images/image-27.png)
 
 - 缓存中的数据交换比DRAM（主存）中快很多，右边为各需时间
 
@@ -101,9 +101,9 @@ for (int i = 0; i < n; ++i) {
 #### Register Tiled矩阵乘法
 - **其反映了主存与寄存器之间的关系**
 
-![alt text](image-28.png)
+![alt text](../images/image-28.png)
 
-![alt text](image-29.png)
+![alt text](../images/image-29.png)
 
 - 理解：把矩阵分块再各块相乘，上图中v1代表A中小块的宽度，v2代表B.T中小块的长度
 

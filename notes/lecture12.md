@@ -12,7 +12,7 @@
 
 #### GPU编程（cuda）
 - SIMT模式（单指令多线程并行）
-![alt text](image-30.png)
+![alt text](../images/image-30.png)
 
 - 左侧为逻辑分层图，右侧为硬件内存图
 - 特点：
@@ -89,7 +89,7 @@ __global__ void VecAddKernel(float* A, float *B, float* C, int n) { // 核函数
 
 
 #### 类似GPU编程
-![alt text](image-31.png)
+![alt text](../images/image-31.png)
 
 没有显著差异
 
@@ -97,7 +97,7 @@ __global__ void VecAddKernel(float* A, float *B, float* C, int n) { // 核函数
 - 类似lecture11中的CPU硬件加速策略
 
 ##### Emample：window sum
-![alt text](image-32.png)
+![alt text](../images/image-32.png)
 
 - 问题：将输入的数组每五个累加作为一个输入数组的元素，类似卷积核滑动，简单说就是一个小卷积
 
@@ -120,7 +120,7 @@ __global__ void WindowSumSimpleKernel(float* A, float *B, int n) {
 ```
 
 - 优化策略：
-![alt text](image-33.png)
+![alt text](../images/image-33.png)
 此图中大小为 4 的 thread block 协同将数据取到共享内存中，每个线程加载 2 次数据（一次本身要加载进共享内存的，一次是前4（2 * radius）个元素要多加载一次末尾输入至共享内存末尾）
 
 - 输入端数据大部分可以重用，故可以利用share memory先储存所有输入端数据，这样就可以被线程共同使用，减少全局内存访问，增加重用率
@@ -193,7 +193,7 @@ __global__ void mm(float A[N][N], float B[N][N], float C[N][N]) {
 ```
 
 代码中注释形象化：
-![alt text](image-34.png)
+![alt text](../images/image-34.png)
 
 - k循环就是给v * v的结果矩阵中每个元素每次累加一组积，而A.T、B中v这一段是由线程的序号决定的，每个线程都计算不同位置的一小段v 
 
@@ -201,7 +201,7 @@ __global__ void mm(float A[N][N], float B[N][N], float C[N][N]) {
 #### shared memory tiling
 - 再添加一层share memory的重用关系，越来越贴合三层结构
 
-![alt text](image-35.png)
+![alt text](../images/image-35.png)
 
 - 前面是每个线程计算一个v * v的矩阵，现在是每个线程块（block）计算一个L * L的矩阵，矩阵中有若干个线程，即有若干v * v小矩阵，矩阵块的快序号定义取一段L的位置
 
@@ -262,7 +262,7 @@ __global__ void mm(float A[N][N], float B[N][N], float C[N][N]) {
 
 
 ### 更多技术加速GPU
-![alt text](image-36.png)
+![alt text](../images/image-36.png)
 - 全局内存连续读入；
 - 共享内存库冲突；
 - 软件流水线；

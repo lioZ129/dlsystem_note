@@ -20,7 +20,7 @@
 - 但在训练中，训练n层神经网络需要O(n)内存，因为计算梯度时需要该层输入，O(n) too cost
 
 #### Activation checkpointing检查点技术
-![alt text](image-37.png)
+![alt text](../images/image-37.png)
 
 - 橙色为保存的激活值，空白为不报存
 - 在前向传播时每个一个（几个）激活值就少存储一个前向传播的激活值，在需要求梯度（伴随值）的时候再重新求之
@@ -29,7 +29,7 @@
   
   因为当求梯度中计算一些前向传播的未保存的部分时，求完梯度之后的重新计算部分中除第一个激活值外的激活值就不再被需要，故可以降低平均的内存使用
 
-![alt text](image-38.png)
+![alt text](../images/image-38.png)
 
 - 每K个激活值少存一个，得出内存使用的情况如上图
 > 会发现当取 $K=\sqrt N$ 时，内存使用最小，为 $O(\sqrt N)$ ；但实际上不会强求 $K=\sqrt N$ 因为层与层之间的重新计算代价不同，尽量挑选重新计算成本低的激活值重新计算
@@ -40,7 +40,7 @@
 ## 并行和分布式训练
 ### 计算图划分 & 管道并行
 
-![alt text](image-39.png)
+![alt text](../images/image-39.png)
 
 - 如上图所示，一个模型被若干worker划分，并通过通讯协议在worker中间传递数据
 - 但这好像只体现在减少了存储压力，在时间上并没有并行--管道并行可以使其按时间并行，主要方法是每个worker分配若干个minibatch管道，当时间戳=0时worker0计算管道0，时间戳=1时worker1计算管道0的同时worker0可以同时计算管道1...这样就没有GPU(worker)闲下来，从而实现高并行
@@ -49,7 +49,7 @@
 - 将一个minibatch分割成更小的smaller batch，每个GPU负责一个smaller batch的计算，这样做每隔GPU上都在跑相同的模型，最后将所有梯度加在一起算minibatch的梯度
 - Allreduce集合通信元语：将分布在多个进程或节点上的数据进行规约（reduction）操作，然后将结果广播回所有参与的进程或节点
 
-![alt text](image-40.png)
+![alt text](../images/image-40.png)
 
 - 如上图，Allreduce元语的一个示例，将每个worker分配相同的任务，给予不同的数据，再将其结果广播并验证
 
@@ -59,7 +59,7 @@
 
 #### 通信计算重叠 communication computation overlap
 
-![alt text](image-42.png)
+![alt text](../images/image-42.png)
 
 - 其含义就是在等待IO的时候不停止计算，在反向传播过程中，让梯度计算和梯度通信重叠执行，从而隐藏通信延迟
 - 将iteration间的等待优化到epoch间的等待
@@ -68,7 +68,7 @@
 
 ### 一些高级并行化方法
 
-![alt text](image-41.png)
+![alt text](../images/image-41.png)
 
 
 zero

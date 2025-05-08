@@ -8,7 +8,7 @@
 
 ### 生成对抗训练的一般机制
 
-![alt text](image-43.png)
+![alt text](../images/image-43.png)
 
 - 图示是分类器与生成器的目标：
    - 分类器：对输入样本进行类别预测，使预测的类别接近标签
@@ -41,7 +41,7 @@ $$ \min _D \max _G\left\{-E_{x \sim \text { Data }} \log D(x)-\mathrm{E}_{z \sim
 
 #### GAN网络的变体
 ##### 1. DCGAN 深度卷积生成网络
-![alt text](image-44.png)
+![alt text](../images/image-44.png)
 
 
 - 反卷积模块（转置卷积、Conv2dTranspose）
@@ -49,7 +49,7 @@ $$ \min _D \max _G\left\{-E_{x \sim \text { Data }} \log D(x)-\mathrm{E}_{z \sim
 
 ##### 2. CycleGAN 图像到图像的翻译
 
-![alt text](image-45.png)
+![alt text](../images/image-45.png)
 
 - 两个未配对数据集的双向翻译器
 - 将GAN作为损失函数，此处的‘生成器’变成翻译器
