@@ -138,3 +138,26 @@ w_3
        > 但是注意这时候的x是输入而不是滤波器，所以反向时伴随 $\bar{v}$ 需要乘以这个基于 $x$ 的矩阵的转置，不能看作滤波器翻转之类（虽然这个x矩阵较多重复部分占用内存，但很有用高效 “见未来关于 im2col 操作的讲座” ）
 
 ？？？
+> im2col操作（将x输入转化成矩阵便于直接相乘以简化卷积运算）：
+```py
+def im2col(input_data, filter_h, filter_w, stride=1, pad=0): # input_data: 输入数据，形状为(N, C, H, W)
+  N, C, H, W = input_data.shape
+  out_h = (H + 2*pad - filter_h) // stride + 1
+  out_w = (W + 2*pad - filter_w) // stride + 1
+  # 计算输出特征图的尺寸out_h和out_w
+
+  # 对输入数据进行零填充
+  img = np.pad(input_data, [(0,0), (0,0), (pad, pad), (pad, pad)], 'constant')
+
+  col = np.zeros((N, C, filter_h, filter_w, out_h, out_w)) # 需要在输入添加两个维度分别为卷积核的h和w作为函数输出，这样后面才能进行矩阵乘法NHW*KKC_in @ KKC_in*C_out
+
+  for y in range(filter_h):
+  y_max = y + stride * out_h
+  for x in range(filter_w):
+  x_max = x + stride * out_w
+  col[:, :, y, x, :, :] = img[:, :, y:y_max:stride, x:x_max:stride]
+  # 收集卷积核每个位置在所有窗口中的输入值，维度为输出的h*w
+
+  col = col.transpose(0, 4, 5, 1, 2, 3).reshape(N * out_h * out_w, -1) # 将数据重塑为二维矩阵，形状为(N*out_h*out_w, C_in*filter_h*filter_w(每个输出位置对应的输入窗口展平后的值))
+  return col
+```
